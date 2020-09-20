@@ -1,0 +1,14 @@
+version: "3.2"
+
+services:
+  backend:
+    build: ./backend
+    image: patsk135/o2ofuneral-backend
+    ports:
+      - 8000:8000
+
+  frontend:
+    build: ./frontend
+    image: patsk135/o2ofuneral-frontend
+    ports:
+      - 3000:3000
