@@ -8,8 +8,8 @@ const main = async () => {
         res.status(200).send('Hello World!')
     })
 
-    app.listen(8000, () => {
-        console.log('Server Started at Port, 8000')
+    app.listen(8080, () => {
+        console.log('Server Started at Port, 8080')
     })
 }
 

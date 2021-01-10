@@ -1,0 +1,34 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'dev' ]
+2 info using npm@6.14.6
+3 info using node@v12.18.4
+4 verbose run-script [ 'predev', 'dev', 'postdev' ]
+5 info lifecycle o2ofuneral-frontend@0.1.0~predev: o2ofuneral-frontend@0.1.0
+6 info lifecycle o2ofuneral-frontend@0.1.0~dev: o2ofuneral-frontend@0.1.0
+7 verbose lifecycle o2ofuneral-frontend@0.1.0~dev: unsafe-perm in lifecycle true
+8 verbose lifecycle o2ofuneral-frontend@0.1.0~dev: PATH: /usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/app/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+9 verbose lifecycle o2ofuneral-frontend@0.1.0~dev: CWD: /app
+10 silly lifecycle o2ofuneral-frontend@0.1.0~dev: Args: [ '-c', 'next dev' ]
+11 silly lifecycle o2ofuneral-frontend@0.1.0~dev: Returned: code: 1  signal: null
+12 info lifecycle o2ofuneral-frontend@0.1.0~dev: Failed to exec dev script
+13 verbose stack Error: o2ofuneral-frontend@0.1.0 dev: `next dev`
+13 verbose stack Exit status 1
+13 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/index.js:332:16)
+13 verbose stack     at EventEmitter.emit (events.js:315:20)
+13 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/lib/spawn.js:55:14)
+13 verbose stack     at ChildProcess.emit (events.js:315:20)
+13 verbose stack     at maybeClose (internal/child_process.js:1021:16)
+13 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:286:5)
+14 verbose pkgid o2ofuneral-frontend@0.1.0
+15 verbose cwd /app
+16 verbose Linux 5.4.39-linuxkit
+17 verbose argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "dev"
+18 verbose node v12.18.4
+19 verbose npm  v6.14.6
+20 error code ELIFECYCLE
+21 error errno 1
+22 error o2ofuneral-frontend@0.1.0 dev: `next dev`
+22 error Exit status 1
+23 error Failed at the o2ofuneral-frontend@0.1.0 dev script.
+23 error This is probably not a problem with npm. There is likely additional logging output above.
+24 verbose exit [ 1, true ]
