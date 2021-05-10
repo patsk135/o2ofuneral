@@ -1,16 +1,18 @@
-import express, { Request, Response } from 'express'
-import cors from 'cors'
+import { Router } from './router';
+import { container } from './container';
+import cors from 'cors';
+import express from 'express';
 
 const main = async () => {
-    const app = express()
-    app.use(cors())
-    app.get('/', (req: Request, res: Response) => {
-        res.status(200).send('Hello World!')
-    })
+    container.initializeDatabase();
 
-    app.listen(8080, () => {
-        console.log('Server Started at Port, 8080')
-    })
-}
+    const app = express();
+    app.use(express.json());
+    app.use(cors());
+    app.use('/', Router);
+    app.listen(container.config.PORT, () => {
+        console.log(`Server Started at Port, ${container.config.PORT}`);
+    });
+};
 
-main()
+main();

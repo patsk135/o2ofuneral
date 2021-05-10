@@ -4,17 +4,26 @@ services:
   backend:
     build: ./backend
     image: patsk135/o2ofuneral-backend
+    environment:
+      PORT:
+      NODE_ENV:
+      DB_URI:
+      DB:
+      SECRET:
+      BASE_URL:
+      MAILER_USER:
+      MAILER_CLIENT_ID:
+      MAILER_PRIVATE_KEY:
+      MAILER_CLIENT_SECRET:
+      SCB_API_KEY:
+      SCB_API_SECRET:
+      SCB_BILLER_ID:
+      SCB_BILLER_NAME:
     ports:
       - 8080:8080
 
-  frontend:
-    build: ./frontend
-    image: patsk135/o2ofuneral-frontend
-    ports:
-      - 4000:3000
-
-  nms:
-    image: illuspas/node-media-server
-    ports:
-      - 1935:1935
-      - 8000:8000
+  # nms:
+  #   image: illuspas/node-media-server
+  #   ports:
+  #     - 1935:1935
+  #     - 8000:8000

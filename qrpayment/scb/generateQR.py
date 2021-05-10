@@ -3,7 +3,7 @@ import json
 
 url = "https://api-sandbox.partners.scb/partners/sandbox/v1/payment/qrcode/create"
 
-accessToken = "555bd181-a7b1-4453-a3d3-5991ba5243e9"
+accessToken = "f8aace5c-279a-4150-8e47-011634c29768"
 
 headers = {
     "Content-Type": "application/json",
