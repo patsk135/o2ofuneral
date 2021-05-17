@@ -1,15 +1,18 @@
-import { Link, useHistory } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { useContext, useEffect, useRef, useState } from 'react';
 
-import Button from 'react-bootstrap/Button';
-// @ts-ignore
-import ReactHLS from 'react-hls';
 import VideoPlayer from './VideoPlayer';
 
+export interface IStreamingParams {
+    roomID: string;
+}
+
 const Streaming = () => {
-    const [streamId, setStreamId] = useState('test');
+    const { roomID } = useParams<IStreamingParams>();
+
+    const [streamId, setStreamId] = useState(roomID);
     const [bufferStreamId, setBufferStreamId] = useState('');
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     let history = useHistory();
 
@@ -20,8 +23,9 @@ const Streaming = () => {
                     <form
                         onSubmit={e => {
                             e.preventDefault();
+                            // console.log(`Join: ${bufferStreamId}`);
                             setStreamId(bufferStreamId);
-                            setIsOpen(true);
+                            history.push(`/streaming/${bufferStreamId}`);
                         }}
                         style={{ display: 'flex' }}
                     >
@@ -42,8 +46,6 @@ const Streaming = () => {
 
             <div style={{ height: '2vh' }}></div>
 
-            {/* <ReactHLS url={'http://localhost:8000/live/test/index.m3u8'} /> */}
-
             {isOpen && (
                 <div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -52,21 +54,24 @@ const Streaming = () => {
                                 display: 'flex',
                                 justifyContent: 'center',
                                 flexDirection: 'column',
-                                height: '80vh',
-                                width: '80vw'
+                                height: '75vh',
+                                width: '75vw'
                             }}
                         >
                             <VideoPlayer streamId={streamId}></VideoPlayer>
                         </div>
                     </div>
                     <div style={{ height: '2vh' }}></div>
-                    <Button
+                    <button
+                        className="btn btn-lg btn-primary"
                         onClick={() => {
-                            history.push('/donation');
+                            history.push(`/donation/${streamId}`);
                         }}
                     >
                         Make a Donation
-                    </Button>
+                    </button>
+
+                    {/* <div style={{ display: 'flex' }}>description</div> */}
                 </div>
             )}
         </div>

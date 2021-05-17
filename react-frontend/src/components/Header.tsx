@@ -8,13 +8,6 @@ const LoggedOutView = () => {
     return (
         <ul className="nav navbar-nav pull-xs-right">
             <li className="nav-item">
-                {/* <Button
-                    onClick={() => {
-                        history.push('/');
-                    }}
-                >
-                    HomeButton
-                </Button> */}
                 <Link to="/" className="nav-link">
                     Home
                 </Link>
@@ -41,33 +34,25 @@ const LoggedInView = () => {
     return (
         <ul className="nav navbar-nav pull-xs-right">
             <li className="nav-item">
-                {/* <Button
-                    onClick={() => {
-                        history.push('/');
-                    }}
-                >
-                    HomeButton
-                </Button> */}
                 <Link to="/" className="nav-link">
                     Home
                 </Link>
             </li>
 
             <li className="nav-item">
-                <Link to="/settings" className="nav-link">
-                    <i className="ion-gear-a"></i>&nbsp;Settings
+                <Link to="/ceremony" className="nav-link">
+                    Ceremony
                 </Link>
             </li>
 
             <li className="nav-item">
-                <Link to="/mockuser" className="nav-link">
-                    <img
-                        src={
-                            '/Users/patsk135/coding/o2ofuneral/react-frontend/public/favicon.ico'
-                        }
-                        className="user-pic"
-                        // alt={props.currentUser.username}
-                    />
+                <Link to="/transaction" className="nav-link">
+                    Transaction
+                </Link>
+            </li>
+
+            <li className="nav-item">
+                <Link to="/profile" className="nav-link">
                     {state.user.username}
                 </Link>
             </li>
@@ -94,6 +79,7 @@ const Header = ({ appName }: HeaderProps) => {
 
     return (
         <nav className="navbar navbar-light">
+            <div style={{ height: '2vh' }}></div>
             <div className="container">
                 {/* {JSON.stringify(state.isLoggedIn)} */}
                 <Link to="/" className="navbar-brand">
@@ -105,6 +91,7 @@ const Header = ({ appName }: HeaderProps) => {
                     <LoggedOutView></LoggedOutView>
                 )}
             </div>
+            <div style={{ height: '5vh' }}></div>
         </nav>
     );
 };

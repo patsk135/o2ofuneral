@@ -5,7 +5,10 @@ import Reducer from './Reducer';
 const initialState = {
     user: {},
     token: '',
-    isLoggedIn: false
+    isLoggedIn: false,
+    errMessage: '',
+    isError: false,
+    isLoading: false
 };
 
 const Store = ({ children }: any) => {

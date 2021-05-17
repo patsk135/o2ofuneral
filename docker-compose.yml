@@ -15,6 +15,7 @@ services:
       MAILER_CLIENT_ID:
       MAILER_PRIVATE_KEY:
       MAILER_CLIENT_SECRET:
+      MAILER_REFRESH_TOKEN:
       SCB_API_KEY:
       SCB_API_SECRET:
       SCB_BILLER_ID:
@@ -22,8 +23,8 @@ services:
     ports:
       - 8080:8080
 
-  # nms:
-  #   image: illuspas/node-media-server
-  #   ports:
-  #     - 1935:1935
-  #     - 8000:8000
+  nms:
+    image: illuspas/node-media-server
+    ports:
+      - 1935:1935
+      - 8000:8000

@@ -3,6 +3,7 @@ import React, { ChangeEvent, useContext, useState } from 'react';
 
 import API from '../utils/API';
 import { Context } from '../Store';
+import ErrorModal from './ErrorModal/ErrorModal';
 
 const Login = () => {
     const { state, dispatch } = useContext(Context) as any;
@@ -17,11 +18,11 @@ const Login = () => {
         password: setPassword
     };
 
-    const changeInput = (input: string): any => (
-        e: ChangeEvent<HTMLInputElement>
-    ) => {
-        return funcMapping[input](e.target.value);
-    };
+    const changeInput =
+        (input: string): any =>
+        (e: ChangeEvent<HTMLInputElement>) => {
+            return funcMapping[input](e.target.value);
+        };
 
     const login = () => {
         console.log(username);
@@ -31,57 +32,74 @@ const Login = () => {
             password
         }).then(async ({ data }) => {
             console.log(data);
-            dispatch({ type: 'login', payload: data });
-            history.push('/');
+            if (data.error) {
+                console.log(data.error.message);
+                // setErrMessage(data.error.message);
+                // setIsError(true);
+                dispatch({ type: 'showError', payload: data.error.message });
+            } else {
+                dispatch({ type: 'login', payload: data });
+                history.push('/');
+            }
         });
     };
 
     return (
-        <div className="auth-page">
-            <div className="container page">
-                <div className="row">
-                    {/* {JSON.stringify(state.isLoggedIn)} */}
-                    <div className="col-md-6 offset-md-3 col-xs-12">
-                        <h1 className="text-xs-center">Sign In</h1>
-                        <p className="text-xs-center">
-                            <Link to="/register">Need an account?</Link>
-                        </p>
+        <div>
+            <div
+                className={
+                    !state.isError ? 'auth-page' : 'auth-page avoid-clicks'
+                }
+            >
+                <div className="container page">
+                    <div className="row">
+                        {/* {JSON.stringify(state.isLoggedIn)} */}
+                        <div className="col-md-6 offset-md-3 col-xs-12">
+                            <h1 className="text-xs-center">Sign In</h1>
+                            <p className="text-xs-center">
+                                <Link to="/register">Need an account?</Link>
+                            </p>
 
-                        <form
-                            onSubmit={e => {
-                                e.preventDefault();
-                                login();
-                            }}
-                        >
-                            <fieldset>
-                                <fieldset className="form-group">
-                                    <input
-                                        className="form-control form-control-lg"
-                                        type="text"
-                                        placeholder="Username"
-                                        value={username}
-                                        onChange={changeInput('username')}
-                                    />
+                            <form
+                                onSubmit={e => {
+                                    e.preventDefault();
+                                    login();
+                                }}
+                            >
+                                <fieldset>
+                                    <fieldset className="form-group">
+                                        <input
+                                            className="form-control form-control-lg"
+                                            type="text"
+                                            placeholder="Username"
+                                            value={username}
+                                            onChange={changeInput('username')}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset className="form-group">
+                                        <input
+                                            className="form-control form-control-lg"
+                                            type="password"
+                                            placeholder="Password"
+                                            value={password}
+                                            onChange={changeInput('password')}
+                                        />
+                                    </fieldset>
+
+                                    <button
+                                        className="btn btn-lg btn-primary pull-xs-right"
+                                        type="submit"
+                                    >
+                                        Sign in
+                                    </button>
                                 </fieldset>
-
-                                <fieldset className="form-group">
-                                    <input
-                                        className="form-control form-control-lg"
-                                        type="password"
-                                        placeholder="Password"
-                                        value={password}
-                                        onChange={changeInput('password')}
-                                    />
-                                </fieldset>
-
-                                <button className="btn btn-lg btn-primary pull-xs-right">
-                                    Sign in
-                                </button>
-                            </fieldset>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+            {state.isError && <ErrorModal></ErrorModal>}
         </div>
     );
 };

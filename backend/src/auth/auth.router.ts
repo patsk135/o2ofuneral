@@ -16,25 +16,43 @@ const router = Router();
 const { authService, jwtService, userRepository } = container;
 
 router.post('/register', async (req, res) => {
-    const input = req.body as RegisterInput;
-    const user = await authService.registerUser(input);
-    const token = await jwtService.generateToken(user.id);
-    const verificationToken = await authService.createVerificationToken(
-        user.id
-    );
-    authService
-        .sendVerificationEmail(user, verificationToken.token)
-        .catch(console.log);
-    const payload: RegisterPayload = { user, token };
-    res.json(payload);
+    try {
+        const input = req.body as RegisterInput;
+        const user = await authService.registerUser(input);
+        const token = await jwtService.generateToken(user.id);
+        const verificationToken = await authService.createVerificationToken(
+            user.id
+        );
+        authService
+            .sendVerificationEmail(user, verificationToken.token)
+            .catch(console.log);
+        const payload: RegisterPayload = { user, token };
+        res.json(payload);
+    } catch (err) {
+        console.log(err.message);
+        res.json({
+            error: {
+                message: err.message
+            }
+        });
+    }
 });
 
 router.post('/login', async (req, res) => {
-    const input = req.body as LoginInput;
-    const user = await authService.login(input);
-    const token = await jwtService.generateToken(user.id, 'GUEST');
-    const payload: LoginPayload = { user: omit(['password'], user), token };
-    res.json(payload);
+    try {
+        const input = req.body as LoginInput;
+        const user = await authService.login(input);
+        const token = await jwtService.generateToken(user.id, 'GUEST');
+        const payload: LoginPayload = { user: omit(['password'], user), token };
+        res.json(payload);
+    } catch (err) {
+        console.log(err.message);
+        res.json({
+            error: {
+                message: err.message
+            }
+        });
+    }
 });
 
 router.get('/ping', isAuthenticated, async (req, res) => {
@@ -43,7 +61,7 @@ router.get('/ping', isAuthenticated, async (req, res) => {
 });
 
 router.get('/verify', async (req, res) => {
-    const { userID, token } = (req.query as unknown) as VerifyUserInput;
+    const { userID, token } = req.query as unknown as VerifyUserInput;
     const user = await authService.verifyUser(userID, token);
     res.send(user);
 });

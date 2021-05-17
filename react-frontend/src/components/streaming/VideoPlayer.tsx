@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import flvjs from 'flv.js';
 
@@ -16,7 +16,7 @@ const VideoPlayer = (props: VideoPlayerProps) => {
                     type: 'flv',
                     hasAudio: true,
                     hasVideo: true,
-                    url: `http://localhost:8000/live/${props.streamId}.flv`
+                    url: `/live/${props.streamId}.flv`
                 },
                 {
                     isLive: true

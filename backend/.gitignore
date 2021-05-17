@@ -89,3 +89,6 @@ typings/
 
 # misc
 .DS_Store
+
+# credentials
+mail-secret.json

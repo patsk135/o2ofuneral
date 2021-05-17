@@ -8,9 +8,11 @@ export interface PaymentAuthPayload {
 export type BearerToken = string;
 
 export interface DonationInput {
+    donationID: string;
     amount: number;
     condolenceWord: string;
-    name: string;
+    from: string;
+    to: string;
 }
 
 export type QRCode = string;

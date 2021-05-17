@@ -1,5 +1,14 @@
 import { AuthService, IAuthService } from './auth/auth.service';
+import {
+    CeremonyDetailRepository,
+    ICeremonyDetailRepository
+} from './ceremony/ceremonydetail.repository';
 import { Config, config } from './config';
+import { DonationService, IDonationService } from './donation/donation.service';
+import {
+    DonationTransactionRepository,
+    IDonationTransactionRepository
+} from './donation/donationTransaction.repository';
 import { IJwtService, JwtService } from './auth/jwt.service';
 import { IMailService, MailService } from './mail/mail.service';
 import { IPaymentService, PaymentService } from './payment/payment.service';
@@ -8,6 +17,10 @@ import {
     IVerificationTokenRepository,
     VerificationTokenRepository
 } from './auth/verificationToken.repository';
+import {
+    IWithdrawRequestRepository,
+    WithdrawRequestRepository
+} from './donation/withdrawRequest.repository';
 import { InitializeDatabase, makeInitializeDatabase } from './db';
 import {
     Resolver,
@@ -26,6 +39,10 @@ export interface AllDependencies {
     verificationTokenRepository: IVerificationTokenRepository;
     mailService: IMailService;
     paymentService: IPaymentService;
+    donationTransactionRepository: IDonationTransactionRepository;
+    donationService: IDonationService;
+    ceremonyDetailRepository: ICeremonyDetailRepository;
+    withdrawRequestRepository: IWithdrawRequestRepository;
 }
 
 type RegisterDeps<T> = {
@@ -40,7 +57,11 @@ export const dependencies: RegisterDeps<AllDependencies> = {
     jwtService: asClass(JwtService),
     verificationTokenRepository: asClass(VerificationTokenRepository),
     mailService: asClass(MailService),
-    paymentService: asClass(PaymentService)
+    paymentService: asClass(PaymentService),
+    donationTransactionRepository: asClass(DonationTransactionRepository),
+    donationService: asClass(DonationService),
+    ceremonyDetailRepository: asClass(CeremonyDetailRepository),
+    withdrawRequestRepository: asClass(WithdrawRequestRepository)
 };
 
 const DIContainer = createContainer();

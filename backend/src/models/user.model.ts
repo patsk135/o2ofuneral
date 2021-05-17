@@ -9,6 +9,8 @@ export interface User {
     password: string;
     firstname: string;
     lastname: string;
+    bank_account: string;
+    account_number: string;
     phone?: string;
     address?: string;
     is_verified: boolean;
@@ -22,6 +24,8 @@ export class UserModel extends Model implements User {
     password!: string;
     firstname!: string;
     lastname!: string;
+    bank_account!: string;
+    account_number!: string;
     phone?: string;
     address?: string;
     is_verified!: boolean;

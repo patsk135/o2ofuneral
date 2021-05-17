@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export interface DonationTransaction {
     id: string;
+    reference: string;
     user?: User;
     user_id: string;
     donator: string;
@@ -16,8 +17,10 @@ export interface DonationTransaction {
 @GenID(uuidv4)
 export default class DonationTransactionModel
     extends Model
-    implements DonationTransaction {
+    implements DonationTransaction
+{
     id!: string;
+    reference!: string;
     user?: User;
     user_id!: string;
     donator!: string;

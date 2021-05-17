@@ -21,8 +21,11 @@ export class MailService implements IMailService {
         this.mailer = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'kookkookfarm12@gmail.com',
-                pass: 'hikookkook123'
+                type: 'OAuth2',
+                user: config.MAILER_USER,
+                clientId: config.MAILER_CLIENT_ID,
+                clientSecret: config.MAILER_CLIENT_SECRET,
+                refreshToken: config.MAILER_REFRESH_TOKEN
             }
         });
     }
