@@ -18,6 +18,8 @@ const Ceremony = () => {
         description: ''
     });
 
+    const [finishFetching, setFinishFetching] = useState(false);
+
     // const [date, setDate] = useState([new Date(), new Date()]);
 
     useEffect(() => {
@@ -26,6 +28,7 @@ const Ceremony = () => {
             .then(({ data }) => {
                 console.log(data);
                 setCeremonyDetail(data);
+                setFinishFetching(true);
             })
             .catch(err => {
                 console.log(err);
@@ -58,6 +61,7 @@ const Ceremony = () => {
         )
             .then(async ({ data }) => {
                 console.log(data);
+                setCeremonyDetail(data);
                 dispatch({
                     type: 'showError',
                     payload: 'Successfully Updated'
@@ -70,119 +74,136 @@ const Ceremony = () => {
 
     return (
         <div>
-            <div
-                className={
-                    !state.isError ? 'auth-page' : 'auth-page avoid-clicks'
-                }
-                style={{ height: '80vh', width: '80vw', paddingLeft: '10vw' }}
-            >
-                <form
-                    style={{ display: 'flex', flexDirection: 'column' }}
-                    onSubmit={e => {
-                        e.preventDefault();
-                        onSubmit();
+            {finishFetching && (
+                <div
+                    className={
+                        !state.isError ? 'auth-page' : 'auth-page avoid-clicks'
+                    }
+                    style={{
+                        height: '80vh',
+                        width: '80vw',
+                        paddingLeft: '10vw'
                     }}
                 >
-                    <div style={{ textAlign: 'left', paddingBottom: '1vh' }}>
-                        <b>The Death:</b>
-                        <div style={{ display: 'flex' }}>
+                    <form
+                        style={{ display: 'flex', flexDirection: 'column' }}
+                        onSubmit={e => {
+                            e.preventDefault();
+                            onSubmit();
+                        }}
+                    >
+                        <div
+                            style={{ textAlign: 'left', paddingBottom: '1vh' }}
+                        >
+                            <b>The Death:</b>
+                            <div style={{ display: 'flex' }}>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    placeholder="Name"
+                                    value={ceremonyDetail.name}
+                                    onChange={e => {
+                                        setCeremonyDetail(old => {
+                                            return {
+                                                ...old,
+                                                name: e.target.value
+                                            };
+                                        });
+                                    }}
+                                ></input>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    placeholder="Lastname"
+                                    value={ceremonyDetail.lastname}
+                                    onChange={e => {
+                                        setCeremonyDetail(old => {
+                                            return {
+                                                ...old,
+                                                lastname: e.target.value
+                                            };
+                                        });
+                                    }}
+                                ></input>
+                            </div>
+                        </div>
+                        <div
+                            style={{ textAlign: 'left', paddingBottom: '1vh' }}
+                        >
+                            <b style={{ paddingRight: '1vw' }}>
+                                Ceremony Date:
+                            </b>
+                            <DateRangePicker
+                                onChange={onChangeDate}
+                                value={[
+                                    ceremonyDetail.startDate,
+                                    ceremonyDetail.endDate
+                                ]}
+                                locale="th-TH"
+                            />
+                        </div>
+                        <div
+                            style={{ textAlign: 'left', paddingBottom: '1vh' }}
+                        >
+                            <b>Location:</b>
                             <input
                                 className="form-control"
                                 type="text"
-                                placeholder="Name"
-                                value={ceremonyDetail.name}
+                                placeholder="Place"
+                                value={ceremonyDetail.location}
                                 onChange={e => {
                                     setCeremonyDetail(old => {
                                         return {
                                             ...old,
-                                            name: e.target.value
-                                        };
-                                    });
-                                }}
-                            ></input>
-                            <input
-                                className="form-control"
-                                type="text"
-                                placeholder="Lastname"
-                                value={ceremonyDetail.lastname}
-                                onChange={e => {
-                                    setCeremonyDetail(old => {
-                                        return {
-                                            ...old,
-                                            lastname: e.target.value
+                                            location: e.target.value
                                         };
                                     });
                                 }}
                             ></input>
                         </div>
-                    </div>
-                    <div style={{ textAlign: 'left', paddingBottom: '1vh' }}>
-                        <b style={{ paddingRight: '1vw' }}>Ceremony Date:</b>
-                        <DateRangePicker
-                            onChange={onChangeDate}
-                            value={[
-                                ceremonyDetail.startDate,
-                                ceremonyDetail.endDate
-                            ]}
-                            locale="th-TH"
-                        />
-                    </div>
-                    <div style={{ textAlign: 'left', paddingBottom: '1vh' }}>
-                        <b>Location:</b>
-                        <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Place"
-                            value={ceremonyDetail.location}
-                            onChange={e => {
-                                setCeremonyDetail(old => {
-                                    return {
-                                        ...old,
-                                        location: e.target.value
-                                    };
-                                });
-                            }}
-                        ></input>
-                    </div>
-                    <div style={{ textAlign: 'left', paddingBottom: '1vh' }}>
-                        <b>Description:</b>
-                        <textarea
-                            className="form-control"
-                            rows={10}
-                            value={ceremonyDetail.description}
-                            onChange={e => {
-                                setCeremonyDetail(old => {
-                                    return {
-                                        ...old,
-                                        description: e.target.value
-                                    };
-                                });
-                            }}
-                        ></textarea>
-                    </div>
-                    <button
-                        className="btn btn-lg btn-primary pull-xs-right"
-                        type="submit"
-                    >
-                        Submit
-                    </button>
-                </form>
-                <div style={{ textAlign: 'left', paddingTop: '2vh' }}>
-                    <b>
-                        Event Link:
-                        <a
-                            href={
-                                'http://192.168.1.36:3000/streaming/' +
-                                state.user.id
-                            }
-                            style={{ paddingLeft: '0.5vw' }}
+                        <div
+                            style={{ textAlign: 'left', paddingBottom: '1vh' }}
                         >
-                            http://192.168.1.36:3000/streaming/
-                            {state.user.id}
-                        </a>
-                    </b>
+                            <b>Description:</b>
+                            <textarea
+                                className="form-control"
+                                rows={10}
+                                value={ceremonyDetail.description}
+                                onChange={e => {
+                                    setCeremonyDetail(old => {
+                                        return {
+                                            ...old,
+                                            description: e.target.value
+                                        };
+                                    });
+                                }}
+                            ></textarea>
+                        </div>
+                        <button
+                            className="btn btn-lg btn-primary pull-xs-right"
+                            type="submit"
+                        >
+                            Submit
+                        </button>
+                    </form>
+                    <div style={{ textAlign: 'left', paddingTop: '2vh' }}>
+                        <b>
+                            Event Link:
+                            <a
+                                href={
+                                    'http://192.168.1.36:3000/streaming/' +
+                                    state.user.id
+                                }
+                                style={{ paddingLeft: '0.5vw' }}
+                            >
+                                http://192.168.1.36:3000/streaming/
+                                {state.user.id}
+                            </a>
+                        </b>
+                    </div>
                 </div>
-            </div>
+            )}
+
             {state.isError && <ErrorModal></ErrorModal>}
         </div>
     );

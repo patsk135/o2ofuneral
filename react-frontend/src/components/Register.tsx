@@ -73,7 +73,7 @@ const Register = () => {
                     type: 'showError',
                     payload: 'Check your email for the verification.'
                 });
-                history.push('/');
+                // history.push('/');
             }
         });
     };

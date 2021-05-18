@@ -20,14 +20,15 @@ router.post('/update', isAuthenticated, async (req, res) => {
     const oldCeremonyDetail = await ceremonyDetailRepository.findOne({
         user_id
     });
-    console.log(oldCeremonyDetail);
-    console.log(ceremonyDetail);
+    // console.log(oldCeremonyDetail);
+    // console.log(ceremonyDetail);
     const payload = await ceremonyDetailRepository.updateOneById(
         oldCeremonyDetail!.id,
         {
             ...ceremonyDetail
         }
     );
+    console.log(payload);
     res.json(payload);
 });
 

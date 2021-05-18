@@ -17,19 +17,7 @@ export const isAuthenticated: RequestHandler = async (req, res, next) => {
         permit.fail(res);
         return next(new UnauthorizedError(`Authentication is required!`));
     }
-    // if (userID === null || role === null || role === undefined) {
-    //     return next(new UnauthorizedError(`Invalid Token!`));
-    // }
-    // if (role === 'USER') {
-    //     const user = await userRepository.findOneById(userID);
-    //     if (!user) {
-    //         return next(new UnauthorizedError('Invalid ID!'));
-    //     }
-    // } else if (role === 'ADMIN') {
-    //     // Later
-    // } else {
-    //     return next(new UnauthorizedError('Invalid Role!'));
-    // }
+
     res.locals.userID = userID;
     // res.locals.role = role;
     next();
