@@ -20,8 +20,6 @@ const Ceremony = () => {
 
     const [finishFetching, setFinishFetching] = useState(false);
 
-    // const [date, setDate] = useState([new Date(), new Date()]);
-
     useEffect(() => {
         // console.log(state.user.id);
         API.get('/ceremony/detail', { params: { id: state.user.id } })
